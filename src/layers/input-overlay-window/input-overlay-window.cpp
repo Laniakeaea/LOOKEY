@@ -1,4 +1,4 @@
-﻿#include "input-overlay-window.hpp"
+#include "input-overlay-window.hpp"
 #include "input-overlay-layout.hpp"
 #include "input-overlay-render.hpp"
 #include "style/style-sanitizer.hpp"
@@ -22,7 +22,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window {
+namespace Keymera::layers::input_overlay_window {
 
 #if defined(_WIN32)
 namespace {
@@ -39,15 +39,16 @@ using Gdiplus::StringFormat;
 using Gdiplus::SolidBrush;
 using Gdiplus::SmoothingModeAntiAlias;
 
-using namespace lookey::layers::input_overlay_window::layout;
-using namespace lookey::layers::input_overlay_window::render;
-using lookey::common::time::now_epoch_ms;
-using lookey::layers::input_overlay_window::style::sanitize_overlay_style;
-using lookey::layers::input_overlay_window::style::sanitize_overlay_key_style;
-using lookey::layers::input_overlay_window::model::build_overlay_frame_metrics;
+using namespace Keymera::layers::input_overlay_window::layout;
+using namespace Keymera::layers::input_overlay_window::render;
+using Keymera::common::time::now_epoch_ms;
+using Keymera::layers::input_overlay_window::style::sanitize_overlay_style;
+using Keymera::layers::input_overlay_window::style::sanitize_overlay_key_style;
+using Keymera::layers::input_overlay_window::model::build_overlay_frame_metrics;
 
-constexpr const char* k_overlay_window_class_name = "LOOKEY_INPUT_OVERLAY_WINDOW";
-constexpr const char* k_app_icon_path = "assets/app/Logo.png";
+constexpr const char* k_overlay_window_class_name = "KEYMERA_INPUT_OVERLAY_WINDOW";
+constexpr const char* k_app_big_icon_path = "assets/app/AppLogo.png";
+constexpr const char* k_app_small_icon_path = "assets/app/AppLog_mid.png";
 constexpr const char* k_waiting_key_label = "󰟢";
 
 // now_epoch_ms comes from common::time via the using declaration above
@@ -122,41 +123,39 @@ const CachedFontFamilies& load_cached_font_families(
     return cache;
 }
 
-HICON load_app_icon_from_png() {
-    static HICON cached_icon = nullptr;
-    if (cached_icon != nullptr) {
-        return cached_icon;
+HICON load_app_icon_from_png(const char* icon_path, int fallback_resource_id) {
+    static std::unordered_map<int, HICON> cache_by_resource;
+    if (icon_path == nullptr || icon_path[0] == '\0') {
+        auto it = cache_by_resource.find(fallback_resource_id);
+        if (it != cache_by_resource.end()) {
+            return it->second;
+        }
+    }
+
+    if (icon_path != nullptr && icon_path[0] != '\0') {
+        const std::wstring wide_path = utf8_to_utf16(icon_path);
+        if (!wide_path.empty()) {
+            Gdiplus::Bitmap bitmap(wide_path.c_str());
+            if (bitmap.GetLastStatus() == Gdiplus::Ok) {
+                HICON icon_handle = nullptr;
+                if (bitmap.GetHICON(&icon_handle) == Gdiplus::Ok) {
+                    return icon_handle;
+                }
+            }
+        }
     }
 
     HICON resource_icon = static_cast<HICON>(LoadImageW(
         GetModuleHandleW(nullptr),
-        MAKEINTRESOURCEW(100),
+        MAKEINTRESOURCEW(fallback_resource_id),
         IMAGE_ICON,
         0,
         0,
         LR_DEFAULTCOLOR));
     if (resource_icon != nullptr) {
-        cached_icon = resource_icon;
-        return cached_icon;
+        cache_by_resource[fallback_resource_id] = resource_icon;
     }
-
-    const std::wstring icon_path = utf8_to_utf16(k_app_icon_path);
-    if (icon_path.empty()) {
-        return nullptr;
-    }
-
-    Gdiplus::Bitmap bitmap(icon_path.c_str());
-    if (bitmap.GetLastStatus() != Gdiplus::Ok) {
-        return nullptr;
-    }
-
-    HICON icon_handle = nullptr;
-    if (bitmap.GetHICON(&icon_handle) != Gdiplus::Ok) {
-        return nullptr;
-    }
-
-    cached_icon = icon_handle;
-    return cached_icon;
+    return resource_icon;
 }
 
 LRESULT CALLBACK overlay_window_proc(HWND window_handle, UINT message, WPARAM w_param, LPARAM l_param) {
@@ -243,20 +242,22 @@ bool InputOverlayWindow::initialize() {
         return false;
     }
 
-    WNDCLASSA window_class{};
+    WNDCLASSEXA window_class{};
+    window_class.cbSize = sizeof(WNDCLASSEXA);
     window_class.lpfnWndProc = overlay_window_proc;
     window_class.hInstance = GetModuleHandleA(nullptr);
     window_class.lpszClassName = k_overlay_window_class_name;
     window_class.hCursor = LoadCursor(nullptr, IDC_ARROW);
-
-    if (RegisterClassA(&window_class) == 0 && GetLastError() != ERROR_CLASS_ALREADY_EXISTS) {
+    window_class.hIcon = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(100), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+    window_class.hIconSm = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(102), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+    if (RegisterClassExA(&window_class) == 0 && GetLastError() != ERROR_CLASS_ALREADY_EXISTS) {
         return false;
     }
 
     HWND window_handle = CreateWindowExA(
         WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_LAYERED,
         k_overlay_window_class_name,
-        "LOOKEY Input Overlay",
+        "Keymera Input Overlay",
         WS_POPUP | WS_VISIBLE,
         position_.x,
         position_.y,
@@ -271,9 +272,11 @@ bool InputOverlayWindow::initialize() {
         return false;
     }
 
-    if (HICON app_icon = load_app_icon_from_png(); app_icon != nullptr) {
-        SendMessageA(window_handle, WM_SETICON, ICON_BIG, reinterpret_cast<LPARAM>(app_icon));
-        SendMessageA(window_handle, WM_SETICON, ICON_SMALL, reinterpret_cast<LPARAM>(app_icon));
+    if (HICON big_icon = load_app_icon_from_png(k_app_big_icon_path, 100); big_icon != nullptr) {
+        SendMessageA(window_handle, WM_SETICON, ICON_BIG, reinterpret_cast<LPARAM>(big_icon));
+    }
+    if (HICON small_icon = load_app_icon_from_png(k_app_small_icon_path, 102); small_icon != nullptr) {
+        SendMessageA(window_handle, WM_SETICON, ICON_SMALL, reinterpret_cast<LPARAM>(small_icon));
     }
 
     window_handle_ = window_handle;
@@ -1626,5 +1629,5 @@ void InputOverlayWindow::paint() {
 #endif
 }
 
-} // namespace lookey::layers::input_overlay_window
+} // namespace Keymera::layers::input_overlay_window
 

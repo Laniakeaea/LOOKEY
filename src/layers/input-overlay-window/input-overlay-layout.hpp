@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window::layout {
+namespace Keymera::layers::input_overlay_window::layout {
 
 int clamp_non_negative(int value);
 int clamp_quality_scale(int value);
@@ -52,4 +52,4 @@ int compute_overlay_row_width(
     int mouse_status_panel_gap,
     bool mouse_status_panel_enabled);
 
-} // namespace lookey::layers::input_overlay_window::layout
+} // namespace Keymera::layers::input_overlay_window::layout

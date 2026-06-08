@@ -7,7 +7,7 @@
 #include <functional>
 #include <string>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 using UnifiedInputEventHandler = std::function<void(const UnifiedInputEvent&)>;
 
@@ -33,4 +33,4 @@ private:
     UnifiedInputEventHandler event_handler_;
 };
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

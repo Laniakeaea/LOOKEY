@@ -3,10 +3,10 @@
 #include <cstdint>
 #include <string>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 /// Compact logical key identity.  All values fit in uint16_t.
-/// Values are stable integers – never re-use or reorder existing entries.
+/// Values are stable integers �?never re-use or reorder existing entries.
 enum class KeyCode : uint16_t {
     // ── Letters (0-25) ──────────────────────────────────────────────────────
     A = 0, B, C, D, E, F, G, H, I, J, K, L, M,
@@ -75,4 +75,4 @@ KeyCode key_code_from_string(const std::string& key_name_upper);
 /// Returns InputAction::unknown for unrecognised names.
 InputAction input_action_from_string(const std::string& action_lower);
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

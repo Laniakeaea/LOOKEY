@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 // Unified event frame format:
 // INPUT EVENT | key=<key_name> | action=<action_name> | seq=<number> | ts=<epoch_ms> | <extra_fields>
@@ -23,4 +23,4 @@ std::string encode_input_event(const UnifiedInputEvent& event);
 std::string encode_keyboard_event(const KeyboardEvent& event);
 std::string encode_mouse_event(const MouseEvent& event);
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

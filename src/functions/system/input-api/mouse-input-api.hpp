@@ -6,7 +6,7 @@
 #include <functional>
 #include <string>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 enum class MouseEventType {
     mouse_left_button_down,
@@ -84,4 +84,4 @@ private:
     MouseEventHandler event_handler_;
 };
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

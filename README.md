@@ -1,4 +1,4 @@
-# Keymera
+# LOOKEY
 
 [English](#english) | [中文](#中文)
 
@@ -13,7 +13,7 @@ A keyboard and mouse input visualization overlay for Windows.
 
 ### Overview
 
-Keymera captures and displays keyboard and mouse inputs as a floating overlay window. Designed for content creators, streamers, educators, and anyone who needs to demonstrate input interactions.
+LOOKEY captures and displays keyboard and mouse inputs as a floating overlay window. Designed for content creators, streamers, educators, and anyone who needs to demonstrate input interactions.
 
 ### Features
 
@@ -44,13 +44,13 @@ Right-click the system tray icon to access settings:
 
 ### Quick Start
 
-1. Download the latest release from the [Releases](https://github.com/Laniakeaea/Keymera/releases) page
+1. Download the latest release from the [Releases](https://github.com/Laniakeaea/LOOKEY/releases) page
 2. Extract the archive
-3. Run `Keymera.exe`
+3. Run `LOOKEY.exe`
 
 ### Preview
 
-<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/e8eec132-1afa-4c86-a11f-e749bd1eb047" />
+<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/16254e15-9020-4c53-bd68-7ef61ecc6ced" />
 
 ### Key Legend
 
@@ -90,7 +90,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ### 简介
 
-Keymera 将键盘和鼠标的输入实时显示为浮动覆盖窗口。专为内容创作者、直播主播、教育工作者以及需要演示输入操作的用户设计。
+LOOKEY 将键盘和鼠标的输入实时显示为浮动覆盖窗口。专为内容创作者、直播主播、教育工作者以及需要演示输入操作的用户设计。
 
 ### 功能特性
 
@@ -121,13 +121,13 @@ Keymera 将键盘和鼠标的输入实时显示为浮动覆盖窗口。专为内
 
 ### 快速开始
 
-1. 从 [Releases](https://github.com/Laniakeaea/Keymera/releases) 页面下载最新版本
+1. 从 [Releases](https://github.com/Laniakeaea/LOOKEY/releases) 页面下载最新版本
 2. 解压压缩包
-3. 运行 `Keymera.exe`
+3. 运行 `LOOKEY.exe`
 
 ### 预览
 
-<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/1bebc398-cd9b-4556-b1eb-cde44783457e" />
+<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/8b5e2fab-8567-4a06-88ef-0c757b36668a" />
 
 ### 按键说明
 

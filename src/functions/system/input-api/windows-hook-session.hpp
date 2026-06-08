@@ -8,7 +8,7 @@
 #include <windows.h>
 #endif
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 class WindowsHookSession {
 public:
@@ -53,4 +53,4 @@ private:
     std::atomic<unsigned long> worker_thread_id_{0};
 };
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

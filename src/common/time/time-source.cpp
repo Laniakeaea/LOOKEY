@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-namespace lookey::common::time {
+namespace Keymera::common::time {
 
 unsigned long long now_epoch_ms() {
     const auto now = std::chrono::system_clock::now();
@@ -10,4 +10,4 @@ unsigned long long now_epoch_ms() {
     return static_cast<unsigned long long>(ms.count());
 }
 
-} // namespace lookey::common::time
+} // namespace Keymera::common::time

@@ -8,7 +8,7 @@
 #include <functional>
 #include <string>
 
-namespace lookey::functions::system::input_middleware {
+namespace Keymera::functions::system::input_middleware {
 
 /// Repeat policy for per-key down-event bursts.
 enum class KeyRepeatBehavior {
@@ -25,7 +25,7 @@ enum class RepeatKind {
 
 /// Middleware output event: raw input facts + semantic enrichment.
 struct SemanticInputEvent {
-    lookey::functions::system::input_api::UnifiedInputEvent base_event;
+    Keymera::functions::system::input_api::UnifiedInputEvent base_event;
     unsigned int repeat_count;
     RepeatKind repeat_kind{RepeatKind::none};
     std::string combo;
@@ -64,7 +64,7 @@ public:
     void reset_state();
 
     /// Process one raw input event and emit semantic event when not suppressed.
-    bool process_event(const lookey::functions::system::input_api::UnifiedInputEvent& input_event);
+    bool process_event(const Keymera::functions::system::input_api::UnifiedInputEvent& input_event);
 
 private:
     static constexpr unsigned long long k_default_repeat_window_ms = 450;
@@ -80,7 +80,7 @@ private:
     [[nodiscard]] static std::string normalize_key(std::string key);
     [[nodiscard]] static std::string normalize_action(std::string action);
     [[nodiscard]] static bool is_modifier_key(input_api::KeyCode code);
-    [[nodiscard]] static std::string build_combo(const lookey::functions::system::input_api::UnifiedInputEvent& event);
+    [[nodiscard]] static std::string build_combo(const Keymera::functions::system::input_api::UnifiedInputEvent& event);
     [[nodiscard]] KeyRepeatBehavior resolve_repeat_behavior(input_api::KeyCode code) const;
 
     static constexpr std::size_t k_key_code_count =
@@ -95,4 +95,4 @@ private:
     ExitTrigger exit_trigger_{"ESC", "down"};
 };
 
-} // namespace lookey::functions::system::input_middleware
+} // namespace Keymera::functions::system::input_middleware

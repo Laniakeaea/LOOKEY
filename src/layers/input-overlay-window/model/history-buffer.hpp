@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window::model {
+namespace Keymera::layers::input_overlay_window::model {
 
 struct HistoryRecord {
     std::string  key;
@@ -57,4 +57,4 @@ private:
     unsigned int              limit_{5};
 };
 
-} // namespace lookey::layers::input_overlay_window::model
+} // namespace Keymera::layers::input_overlay_window::model

@@ -4,7 +4,7 @@
 #include <cctype>
 #include <unordered_map>
 
-namespace lookey::layers::input_overlay_window::model {
+namespace Keymera::layers::input_overlay_window::model {
 
 namespace {
 
@@ -357,4 +357,4 @@ std::string HistoryBuffer::readable_token(const std::string& token) {
     return title_case(up);
 }
 
-} // namespace lookey::layers::input_overlay_window::model
+} // namespace Keymera::layers::input_overlay_window::model

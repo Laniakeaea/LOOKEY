@@ -22,11 +22,11 @@
 #include <shellapi.h>
 #endif
 
-namespace input_api = lookey::functions::system::input_api;
-namespace input_middleware = lookey::functions::system::input_middleware;
-namespace input_overlay_window = lookey::layers::input_overlay_window;
-namespace input_overlay_theme_config = lookey::layers::input_overlay_window::theme_config;
-namespace tray_settings = lookey::layers::main_window::tray_settings;
+namespace input_api = Keymera::functions::system::input_api;
+namespace input_middleware = Keymera::functions::system::input_middleware;
+namespace input_overlay_window = Keymera::layers::input_overlay_window;
+namespace input_overlay_theme_config = Keymera::layers::input_overlay_window::theme_config;
+namespace tray_settings = Keymera::layers::main_window::tray_settings;
 
 namespace {
 #if defined(_WIN32)
@@ -76,7 +76,7 @@ std::atomic<bool> g_tray_restore_factory_requested{false};
 std::atomic<bool> g_tray_exit_requested{false};
 
 constexpr const wchar_t* k_windows_startup_run_key = L"Software\\Microsoft\\Windows\\CurrentVersion\\Run";
-constexpr const wchar_t* k_windows_startup_value_name = L"LOOKEY";
+constexpr const wchar_t* k_windows_startup_value_name = L"Keymera";
 
 bool set_start_with_windows_enabled(bool enabled) {
     HKEY run_key = nullptr;
@@ -289,11 +289,14 @@ public:
 
         HINSTANCE instance = GetModuleHandleW(nullptr);
 
-        WNDCLASSW wc{};
+        WNDCLASSEXW wc{};
+        wc.cbSize = sizeof(WNDCLASSEXW);
         wc.lpfnWndProc = tray_window_proc;
         wc.hInstance = instance;
-        wc.lpszClassName = L"LookeyTrayWindowClass";
-        if (!RegisterClassW(&wc)) {
+        wc.lpszClassName = L"KeymeraTrayWindowClass";
+        wc.hIcon = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(102), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+        wc.hIconSm = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(101), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+        if (!RegisterClassExW(&wc)) {
             const DWORD error = GetLastError();
             if (error != ERROR_CLASS_ALREADY_EXISTS) {
                 return false;
@@ -303,7 +306,7 @@ public:
         hwnd_ = CreateWindowExW(
             0,
             wc.lpszClassName,
-            L"LookeyTrayWindow",
+            L"KeymeraTrayWindow",
             WS_OVERLAPPED,
             0,
             0,
@@ -328,7 +331,7 @@ public:
         const int small_icon_height = GetSystemMetrics(SM_CYSMICON);
         notify_icon_data_.hIcon = static_cast<HICON>(LoadImageW(
             instance,
-            MAKEINTRESOURCEW(100),
+            MAKEINTRESOURCEW(101),
             IMAGE_ICON,
             small_icon_width,
             small_icon_height,
@@ -336,7 +339,7 @@ public:
         if (notify_icon_data_.hIcon == nullptr) {
             notify_icon_data_.hIcon = LoadIconW(nullptr, MAKEINTRESOURCEW(32512));
         }
-        lstrcpynW(notify_icon_data_.szTip, L"Lookey", sizeof(notify_icon_data_.szTip) / sizeof(WCHAR));
+        lstrcpynW(notify_icon_data_.szTip, L"Keymera", sizeof(notify_icon_data_.szTip) / sizeof(WCHAR));
 
         if (!Shell_NotifyIconW(NIM_ADD, &notify_icon_data_)) {
             DestroyWindow(hwnd_);
@@ -641,7 +644,7 @@ void apply_scale_to_general_settings(
 }
 
 std::filesystem::path tray_settings_path() {
-    return std::filesystem::path("lookey-settings.cfg");
+    return std::filesystem::path("Keymera-settings.cfg");
 }
 
 bool parse_bool_value(const std::string& text, bool& out_value) {
@@ -685,7 +688,7 @@ std::filesystem::path executable_directory() {
 }
 
 void ensure_assets_working_directory() {
-#if defined(LOOKEY_EMBED_ASSETS)
+#if defined(KEYMERA_EMBED_ASSETS)
     return;
 #else
     std::error_code ec;
@@ -716,8 +719,8 @@ void ensure_assets_working_directory() {
         candidate = parent;
     }
 
-#if defined(LOOKEY_SOURCE_ROOT)
-    const std::filesystem::path source_root = std::filesystem::path(LOOKEY_SOURCE_ROOT);
+#if defined(KEYMERA_SOURCE_ROOT)
+    const std::filesystem::path source_root = std::filesystem::path(KEYMERA_SOURCE_ROOT);
     if (is_valid_assets_root(source_root)) {
         std::filesystem::current_path(source_root, ec);
     }
@@ -895,7 +898,7 @@ int main() {
     ensure_assets_working_directory();
 
 #if defined(_WIN32)
-    HANDLE single_instance_mutex = CreateMutexW(nullptr, FALSE, L"Local\\LOOKEY_SINGLE_INSTANCE_MUTEX");
+    HANDLE single_instance_mutex = CreateMutexW(nullptr, FALSE, L"Local\\KEYMERA_SINGLE_INSTANCE_MUTEX");
     if (single_instance_mutex == nullptr) {
         std::cout << "single-instance mutex failed" << std::endl;
         return 1;
@@ -1026,7 +1029,7 @@ int main() {
         semantics_middleware.process_event(event);
     });
 
-    std::cout << "lookey api-first core test started" << std::endl;
+    std::cout << "Keymera api-first core test started" << std::endl;
     std::cout << "initial state: " << input_api_core.describe_state() << std::endl;
 
     if (!input_api_core.start_input_listener()) {

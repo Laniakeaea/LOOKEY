@@ -10,10 +10,10 @@
 #include <windows.h>
 #endif
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 namespace {
-using lookey::common::time::now_epoch_ms;
+using Keymera::common::time::now_epoch_ms;
 
 std::atomic<unsigned long long> g_event_sequence{0};
 
@@ -370,4 +370,4 @@ std::string encode_mouse_event(const MouseEvent& event) {
     return encode_input_event(to_unified_input_event(event));
 }
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

@@ -6,7 +6,7 @@
 #include <windows.h>
 #endif
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 #if defined(_WIN32)
 namespace {
@@ -106,4 +106,4 @@ void KeyboardInputApi::publish(KeyboardEventType event_type, unsigned int virtua
         win_pressed});
 }
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

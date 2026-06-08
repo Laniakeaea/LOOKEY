@@ -1,6 +1,6 @@
 #include "theme-config.hpp"
 
-namespace lookey::layers::input_overlay_window::theme_config {
+namespace Keymera::layers::input_overlay_window::theme_config {
 
 const ThemePaletteConfig& palette_for_mode(ThemeMode mode) {
     static const ThemePaletteConfig dark_mode_palette{
@@ -51,4 +51,4 @@ void apply_palette_to_styles(
     background = palette.overlay_background;
 }
 
-} // namespace lookey::layers::input_overlay_window::theme_config
+} // namespace Keymera::layers::input_overlay_window::theme_config

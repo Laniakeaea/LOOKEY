@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 namespace {
 
@@ -146,4 +146,4 @@ InputAction input_action_from_string(const std::string& action_lower) {
     return InputAction::unknown;
 }
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

@@ -10,7 +10,7 @@
 #include <unordered_set>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window {
+namespace Keymera::layers::input_overlay_window {
 
 struct OverlayPosition {
     int x{24};
@@ -271,4 +271,4 @@ private:
     std::unordered_set<std::string> active_hold_keys_{};
 };
 
-} // namespace lookey::layers::input_overlay_window
+} // namespace Keymera::layers::input_overlay_window

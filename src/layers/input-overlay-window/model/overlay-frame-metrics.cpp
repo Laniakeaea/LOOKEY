@@ -2,7 +2,7 @@
 
 #include "../input-overlay-layout.hpp"
 
-namespace lookey::layers::input_overlay_window::model {
+namespace Keymera::layers::input_overlay_window::model {
 
 using namespace layout;
 
@@ -125,4 +125,4 @@ OverlayFrameMetrics build_overlay_frame_metrics(
     return m;
 }
 
-} // namespace lookey::layers::input_overlay_window::model
+} // namespace Keymera::layers::input_overlay_window::model

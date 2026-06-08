@@ -16,4 +16,4 @@ Expected files:
 
 If network is available, you can also enable fetch mode:
 
-cmake -S . -B build -G Ninja -DLOOKEY_FETCH_DEPS=ON
+cmake -S . -B build -G Ninja -DKEYMERA_FETCH_DEPS=ON

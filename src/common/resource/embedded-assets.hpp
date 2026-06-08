@@ -4,7 +4,7 @@
 #include <optional>
 #include <string_view>
 
-namespace lookey::common::resource {
+namespace Keymera::common::resource {
 
 struct EmbeddedAssetView {
     const unsigned char* data{nullptr};
@@ -13,4 +13,4 @@ struct EmbeddedAssetView {
 
 std::optional<EmbeddedAssetView> find_embedded_asset(std::string_view path);
 
-} // namespace lookey::common::resource
+} // namespace Keymera::common::resource

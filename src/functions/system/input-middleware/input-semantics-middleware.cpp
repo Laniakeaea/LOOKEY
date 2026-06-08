@@ -4,7 +4,7 @@
 #include <sstream>
 #include <utility>
 
-namespace lookey::functions::system::input_middleware {
+namespace Keymera::functions::system::input_middleware {
 
 // ------------------------------
 // Public API
@@ -58,7 +58,7 @@ void InputSemanticsMiddleware::reset_state() {
     repeat_state_by_code_.fill({});
 }
 
-bool InputSemanticsMiddleware::process_event(const lookey::functions::system::input_api::UnifiedInputEvent& input_event) {
+bool InputSemanticsMiddleware::process_event(const Keymera::functions::system::input_api::UnifiedInputEvent& input_event) {
     if (!output_handler_) {
         return false;
     }
@@ -151,7 +151,7 @@ bool InputSemanticsMiddleware::is_modifier_key(input_api::KeyCode code) {
         || code == input_api::KeyCode::WIN;
 }
 
-std::string InputSemanticsMiddleware::build_combo(const lookey::functions::system::input_api::UnifiedInputEvent& event) {
+std::string InputSemanticsMiddleware::build_combo(const Keymera::functions::system::input_api::UnifiedInputEvent& event) {
     const std::string key_upper = normalize_key(event.key);
     const bool key_is_ctrl = key_upper == "CTRL";
     const bool key_is_alt = key_upper == "ALT";
@@ -200,4 +200,4 @@ KeyRepeatBehavior InputSemanticsMiddleware::resolve_repeat_behavior(input_api::K
     return KeyRepeatBehavior::count;
 }
 
-} // namespace lookey::functions::system::input_middleware
+} // namespace Keymera::functions::system::input_middleware

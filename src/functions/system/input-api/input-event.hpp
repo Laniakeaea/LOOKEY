@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 enum class KeySide {
     none,
@@ -29,4 +29,4 @@ struct UnifiedInputEvent {
     KeySide key_side{KeySide::none};
 };
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

@@ -4,7 +4,7 @@
 
 #include <functional>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 enum class KeyboardEventType {
     key_down,
@@ -44,4 +44,4 @@ private:
     KeyboardEventHandler event_handler_;
 };
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

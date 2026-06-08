@@ -2,7 +2,7 @@
 
 #include "../input-overlay-window.hpp"
 
-namespace lookey::layers::input_overlay_window::theme_config {
+namespace Keymera::layers::input_overlay_window::theme_config {
 
 struct ThemePaletteConfig {
     OverlayColor overlay_background;
@@ -22,4 +22,4 @@ void apply_palette_to_styles(
     OverlayKeyStyle& key_style,
     OverlayColor& background);
 
-} // namespace lookey::layers::input_overlay_window::theme_config
+} // namespace Keymera::layers::input_overlay_window::theme_config

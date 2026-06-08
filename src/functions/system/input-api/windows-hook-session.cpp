@@ -4,7 +4,7 @@
 #include <windows.h>
 #endif
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 WindowsHookSession::~WindowsHookSession() {
     stop();
@@ -121,4 +121,4 @@ void WindowsHookSession::run_loop() {
 }
 #endif
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

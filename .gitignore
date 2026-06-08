@@ -1,5 +1,5 @@
 # ============================
-# Lookey Project - Git Ignore
+# Keymera Project - Git Ignore
 # ============================
 
 # ----------------------------------
@@ -141,5 +141,7 @@ coverage/
 # ----------------------------------
 # 14. Runtime Configuration Files
 # ----------------------------------
-lookey-settings.cfg
+Keymera-settings.cfg
 imgui.ini
+
+lookey-settings.cfg

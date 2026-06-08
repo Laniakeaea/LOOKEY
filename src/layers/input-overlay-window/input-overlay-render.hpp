@@ -9,7 +9,7 @@
 #include <gdiplus.h>
 #endif
 
-namespace lookey::layers::input_overlay_window::render {
+namespace Keymera::layers::input_overlay_window::render {
 
 #if defined(_WIN32)
 bool ensure_gdiplus_started();
@@ -67,4 +67,4 @@ void draw_mouse_status_panel(
     ThemeMode theme_mode);
 #endif
 
-} // namespace lookey::layers::input_overlay_window::render
+} // namespace Keymera::layers::input_overlay_window::render

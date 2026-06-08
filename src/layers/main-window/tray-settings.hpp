@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace lookey::layers::main_window::tray_settings {
+namespace Keymera::layers::main_window::tray_settings {
 
 enum class ThemeSetting {
     dark,
@@ -76,4 +76,4 @@ struct GeneralSettings {
     bool operator==(const GeneralSettings&) const = default;
 };
 
-} // namespace lookey::layers::main_window::tray_settings
+} // namespace Keymera::layers::main_window::tray_settings

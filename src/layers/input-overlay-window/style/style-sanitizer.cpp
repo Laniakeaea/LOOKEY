@@ -2,7 +2,7 @@
 
 #include "../input-overlay-layout.hpp"
 
-namespace lookey::layers::input_overlay_window::style {
+namespace Keymera::layers::input_overlay_window::style {
 
 using namespace layout;
 
@@ -32,4 +32,4 @@ void sanitize_overlay_key_style(OverlayKeyStyle& s) {
     s.font_extra_bold_strength          = clamp_bold_strength(s.font_extra_bold_strength);
 }
 
-} // namespace lookey::layers::input_overlay_window::style
+} // namespace Keymera::layers::input_overlay_window::style

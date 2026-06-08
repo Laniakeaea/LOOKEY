@@ -1,6 +1,6 @@
 #include "input-overlay-theme.hpp"
 
-namespace lookey::layers::input_overlay_window::theme {
+namespace Keymera::layers::input_overlay_window::theme {
 
 #if defined(_WIN32)
 Gdiplus::Color make_color(std::uint8_t opacity, const OverlayColor& color) {
@@ -21,4 +21,4 @@ MouseStatusPanelThemeColors resolve_mouse_status_panel_lr_colors(const OverlayKe
 }
 #endif
 
-} // namespace lookey::layers::input_overlay_window::theme
+} // namespace Keymera::layers::input_overlay_window::theme

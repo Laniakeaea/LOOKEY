@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window {
+namespace Keymera::layers::input_overlay_window {
 
 struct OverlayStyle;
 struct OverlayKeyStyle;
@@ -70,4 +70,4 @@ OverlayFrameMetrics build_overlay_frame_metrics(
     const std::vector<std::string>& history_lines);
 
 } // namespace model
-} // namespace lookey::layers::input_overlay_window
+} // namespace Keymera::layers::input_overlay_window

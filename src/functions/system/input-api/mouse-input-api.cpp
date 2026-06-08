@@ -8,7 +8,7 @@
 #include <windows.h>
 #endif
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 namespace {
 struct ModifierState {
@@ -252,4 +252,4 @@ void MouseInputApi::publish(MouseEventType event_type) {
         modifiers.win_pressed});
 }
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api

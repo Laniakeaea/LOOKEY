@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-namespace lookey::layers::input_overlay_window::layout {
+namespace Keymera::layers::input_overlay_window::layout {
 
 namespace {
 bool is_f_key_pattern(const std::string& key_name_upper) {
@@ -498,4 +498,4 @@ int compute_overlay_row_width(
     return total_width;
 }
 
-} // namespace lookey::layers::input_overlay_window::layout
+} // namespace Keymera::layers::input_overlay_window::layout

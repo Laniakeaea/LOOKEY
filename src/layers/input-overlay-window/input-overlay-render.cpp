@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-namespace lookey::layers::input_overlay_window::render {
+namespace Keymera::layers::input_overlay_window::render {
 
 #if defined(_WIN32)
 namespace {
@@ -29,7 +29,7 @@ using Gdiplus::PrivateFontCollection;
 using Gdiplus::RectF;
 using Gdiplus::SolidBrush;
 using Gdiplus::SmoothingModeAntiAlias;
-using lookey::common::resource::find_embedded_asset;
+using Keymera::common::resource::find_embedded_asset;
 
 ULONG_PTR g_gdiplus_token = 0;
 
@@ -957,4 +957,4 @@ void draw_mouse_status_panel(
 }
 #endif
 
-} // namespace lookey::layers::input_overlay_window::render
+} // namespace Keymera::layers::input_overlay_window::render

@@ -4,7 +4,7 @@
 
 #include <utility>
 
-namespace lookey::functions::system::input_api {
+namespace Keymera::functions::system::input_api {
 
 // ------------------------------
 // Core event bridge (fact-only)
@@ -70,4 +70,4 @@ void InputApi::on_mouse_event(const MouseEvent& event) {
     event_handler_(to_runtime_unified_input_event(event));
 }
 
-} // namespace lookey::functions::system::input_api
+} // namespace Keymera::functions::system::input_api
