@@ -50,7 +50,7 @@ Right-click the system tray icon to access settings:
 
 ### Preview
 
-<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/16254e15-9020-4c53-bd68-7ef61ecc6ced" />
+<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/5f70f6f7-49ea-4655-8835-183c79feeb2d" />
 
 ### Key Legend
 
@@ -127,7 +127,7 @@ LOOKEY 将键盘和鼠标的输入实时显示为浮动覆盖窗口。专为内�
 
 ### 预览
 
-<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/8b5e2fab-8567-4a06-88ef-0c757b36668a" />
+<img width="1600" height="800" alt="snap" src="https://github.com/user-attachments/assets/9c591688-49e1-4cdc-98e6-722db8ad78b3" />
 
 ### 按键说明
 
