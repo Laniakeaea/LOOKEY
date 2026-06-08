@@ -329,7 +329,7 @@ public:
         notify_icon_data_.uCallbackMessage = k_tray_callback_message;
         notify_icon_data_.hIcon = static_cast<HICON>(LoadImageW(
             instance,
-            MAKEINTRESOURCEW(100),
+            MAKEINTRESOURCEW(101),
             IMAGE_ICON,
             0,
             0,
