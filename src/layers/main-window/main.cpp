@@ -294,8 +294,8 @@ public:
         wc.lpfnWndProc = tray_window_proc;
         wc.hInstance = instance;
         wc.lpszClassName = L"KeymeraTrayWindowClass";
-        wc.hIcon = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(102), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
-        wc.hIconSm = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(101), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+        wc.hIcon = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(100), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+        wc.hIconSm = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(102), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
         if (!RegisterClassExW(&wc)) {
             const DWORD error = GetLastError();
             if (error != ERROR_CLASS_ALREADY_EXISTS) {
@@ -327,14 +327,12 @@ public:
         notify_icon_data_.uID = k_tray_icon_uid;
         notify_icon_data_.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
         notify_icon_data_.uCallbackMessage = k_tray_callback_message;
-        const int default_icon_width = GetSystemMetrics(SM_CXICON);
-        const int default_icon_height = GetSystemMetrics(SM_CYICON);
         notify_icon_data_.hIcon = static_cast<HICON>(LoadImageW(
             instance,
-            MAKEINTRESOURCEW(101),
+            MAKEINTRESOURCEW(100),
             IMAGE_ICON,
-            default_icon_width,
-            default_icon_height,
+            0,
+            0,
             LR_DEFAULTCOLOR));
         if (notify_icon_data_.hIcon == nullptr) {
             notify_icon_data_.hIcon = LoadIconW(nullptr, MAKEINTRESOURCEW(32512));

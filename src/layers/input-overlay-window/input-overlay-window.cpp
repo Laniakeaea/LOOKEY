@@ -123,13 +123,14 @@ const CachedFontFamilies& load_cached_font_families(
     return cache;
 }
 
-HICON load_app_icon_from_png(const char* icon_path, int fallback_resource_id) {
-    static std::unordered_map<int, HICON> cache_by_resource;
-    if (icon_path == nullptr || icon_path[0] == '\0') {
-        auto it = cache_by_resource.find(fallback_resource_id);
-        if (it != cache_by_resource.end()) {
-            return it->second;
-        }
+HICON load_app_icon_from_png(const char* icon_path, int fallback_resource_id, int target_cx, int target_cy) {
+    static std::unordered_map<uint64_t, HICON> icon_cache;
+    const uint64_t cache_key = (static_cast<uint64_t>(fallback_resource_id) << 32)
+        | (static_cast<uint32_t>(target_cx) << 16)
+        | static_cast<uint32_t>(target_cy);
+    auto cached_it = icon_cache.find(cache_key);
+    if (cached_it != icon_cache.end()) {
+        return cached_it->second;
     }
 
     if (icon_path != nullptr && icon_path[0] != '\0') {
@@ -137,9 +138,26 @@ HICON load_app_icon_from_png(const char* icon_path, int fallback_resource_id) {
         if (!wide_path.empty()) {
             Gdiplus::Bitmap bitmap(wide_path.c_str());
             if (bitmap.GetLastStatus() == Gdiplus::Ok) {
+                const int bitmap_w = bitmap.GetWidth();
+                const int bitmap_h = bitmap.GetHeight();
                 HICON icon_handle = nullptr;
-                if (bitmap.GetHICON(&icon_handle) == Gdiplus::Ok) {
-                    return icon_handle;
+                if (bitmap_w == target_cx && bitmap_h == target_cy) {
+                    if (bitmap.GetHICON(&icon_handle) == Gdiplus::Ok) {
+                        icon_cache[cache_key] = icon_handle;
+                        return icon_handle;
+                    }
+                } else {
+                    Gdiplus::Bitmap resized(target_cx, target_cy, PixelFormat32bppARGB);
+                    Gdiplus::Graphics graphics(&resized);
+                    graphics.SetInterpolationMode(Gdiplus::InterpolationModeHighQualityBicubic);
+                    graphics.SetPixelOffsetMode(Gdiplus::PixelOffsetModeHighQuality);
+                    graphics.SetSmoothingMode(Gdiplus::SmoothingModeHighQuality);
+                    graphics.Clear(Gdiplus::Color(0, 0, 0, 0));
+                    graphics.DrawImage(&bitmap, 0, 0, target_cx, target_cy);
+                    if (resized.GetHICON(&icon_handle) == Gdiplus::Ok) {
+                        icon_cache[cache_key] = icon_handle;
+                        return icon_handle;
+                    }
                 }
             }
         }
@@ -149,11 +167,11 @@ HICON load_app_icon_from_png(const char* icon_path, int fallback_resource_id) {
         GetModuleHandleW(nullptr),
         MAKEINTRESOURCEW(fallback_resource_id),
         IMAGE_ICON,
-        0,
-        0,
+        target_cx,
+        target_cy,
         LR_DEFAULTCOLOR));
     if (resource_icon != nullptr) {
-        cache_by_resource[fallback_resource_id] = resource_icon;
+        icon_cache[cache_key] = resource_icon;
     }
     return resource_icon;
 }
@@ -248,8 +266,10 @@ bool InputOverlayWindow::initialize() {
     window_class.hInstance = GetModuleHandleA(nullptr);
     window_class.lpszClassName = k_overlay_window_class_name;
     window_class.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    window_class.hIcon = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(100), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
-    window_class.hIconSm = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(102), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+    window_class.hIcon = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(100), IMAGE_ICON,
+        GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR));
+    window_class.hIconSm = static_cast<HICON>(LoadImageA(GetModuleHandleA(nullptr), MAKEINTRESOURCEA(102), IMAGE_ICON,
+        GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR));
     if (RegisterClassExA(&window_class) == 0 && GetLastError() != ERROR_CLASS_ALREADY_EXISTS) {
         return false;
     }
@@ -272,10 +292,12 @@ bool InputOverlayWindow::initialize() {
         return false;
     }
 
-    if (HICON big_icon = load_app_icon_from_png(k_app_big_icon_path, 100); big_icon != nullptr) {
+    if (HICON big_icon = load_app_icon_from_png(k_app_big_icon_path, 100,
+            GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON)); big_icon != nullptr) {
         SendMessageA(window_handle, WM_SETICON, ICON_BIG, reinterpret_cast<LPARAM>(big_icon));
     }
-    if (HICON small_icon = load_app_icon_from_png(k_app_small_icon_path, 102); small_icon != nullptr) {
+    if (HICON small_icon = load_app_icon_from_png(k_app_small_icon_path, 102,
+            GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON)); small_icon != nullptr) {
         SendMessageA(window_handle, WM_SETICON, ICON_SMALL, reinterpret_cast<LPARAM>(small_icon));
     }
 
