@@ -327,14 +327,14 @@ public:
         notify_icon_data_.uID = k_tray_icon_uid;
         notify_icon_data_.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
         notify_icon_data_.uCallbackMessage = k_tray_callback_message;
-        const int small_icon_width = GetSystemMetrics(SM_CXSMICON);
-        const int small_icon_height = GetSystemMetrics(SM_CYSMICON);
+        const int default_icon_width = GetSystemMetrics(SM_CXICON);
+        const int default_icon_height = GetSystemMetrics(SM_CYICON);
         notify_icon_data_.hIcon = static_cast<HICON>(LoadImageW(
             instance,
             MAKEINTRESOURCEW(101),
             IMAGE_ICON,
-            small_icon_width,
-            small_icon_height,
+            default_icon_width,
+            default_icon_height,
             LR_DEFAULTCOLOR));
         if (notify_icon_data_.hIcon == nullptr) {
             notify_icon_data_.hIcon = LoadIconW(nullptr, MAKEINTRESOURCEW(32512));
