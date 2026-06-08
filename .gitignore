@@ -1,0 +1,145 @@
+# ============================
+# Lookey Project - Git Ignore
+# ============================
+
+# ----------------------------------
+# 1. Build Outputs
+# ----------------------------------
+build/
+dist/
+*.zip
+
+# ----------------------------------
+# 2. IDE & Development Tools
+# ----------------------------------
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ----------------------------------
+# 3. Python Virtual Environment
+# ----------------------------------
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ----------------------------------
+# 4. Support & Documentation (Internal)
+# ----------------------------------
+support/
+
+# ----------------------------------
+# 5. Third-Party Prebuilt Binaries
+# ----------------------------------
+third-party/glfw-bin/
+!third-party/glfw-bin/include/
+!third-party/glfw-bin/lib/
+
+# ----------------------------------
+# 6. Third-Party Development Files (Optional)
+# ----------------------------------
+# imgui development metadata
+third-party/imgui/.github/
+third-party/imgui/examples/
+third-party/imgui/misc/single_file/
+third-party/imgui/docs/
+third-party/imgui/.gitignore
+third-party/imgui/.gitattributes
+
+# GLFW source (keep only include/lib if you only need prebuilt)
+third-party/glfw/
+third-party/glfw/.gitkeep
+
+# ----------------------------------
+# 7. Compiled / Object Files
+# ----------------------------------
+*.o
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.a
+*.exp
+*.map
+*.idb
+*.pch
+*.objcopy*
+*.manifest
+*.rsrc
+
+# ----------------------------------
+# 8. Executables & Libraries
+# ----------------------------------
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+*.ipa
+*.appx
+*.xapk
+
+# ----------------------------------
+# 9. CMake Build Files
+# ----------------------------------
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# ----------------------------------
+# 10. Editor & OS Files
+# ----------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*
+*.tmp
+*.swp
+*.swo
+*~
+.vs/
+*.log
+
+# ----------------------------------
+# 11. Dependency Manager Files
+# ----------------------------------
+vcpkg.json.timestamp*
+conan.lock
+conaninfo.txt
+conanmanifest.txt
+
+# ----------------------------------
+# 12. Test & Coverage
+# ----------------------------------
+coverage/
+*.gcno
+*.gcda
+*.gcov
+*.profraw
+
+# ----------------------------------
+# 13. Release / Package Files
+# ----------------------------------
+*.msi
+*.msm
+*.msp
+*.deb
+*.rpm
+*.tar.gz
+*.7z
+*.rar
+
+# ----------------------------------
+# 14. Runtime Configuration Files
+# ----------------------------------
+lookey-settings.cfg
+imgui.ini
