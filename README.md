@@ -159,5 +159,3 @@ Keymera 将键盘和鼠标的输入实时显示为浮动覆盖窗口。专为内
 MIT 许可证 - 详见 [LICENSE](LICENSE)。
 
 ---
-
-<img width="4000" height="800" alt="Ending_bg" src="https://github.com/user-attachments/assets/d60348d7-febe-49c3-a05e-0b634b84ab52" />
